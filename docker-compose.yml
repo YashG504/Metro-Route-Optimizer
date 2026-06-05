@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  metro-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: metro-route-optimizer
+    image: metro-app:latest
+    
+    # Interactive mode for CLI
+    stdin_open: true
+    tty: true
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 256M
+        reservations:
+          cpus: '0.5'
+          memory: 128M
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Environment variables (if needed for future features)
+    environment:
+      - TERM=xterm-256color
+      - APP_VERSION=2.0
+      - ENV=production
+    
+    # Volume for persistent journey history
+    volumes:
+      - ./journey_history.txt:/app/journey_history.txt
+      - ./metro_config.txt:/app/metro_config.txt
+    
+    # Network configuration
+    networks:
+      - metro-network
+
+networks:
+  metro-network:
+    driver: bridge
+
+# Notes:
+# Build: docker-compose build
+# Run: docker-compose up -d
+# Logs: docker-compose logs -f
+# Stop: docker-compose down
+# Interactive: docker-compose run --rm metro-app
