@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pune Metro Route Optimizer — Find shortest routes, travel time, and fares using Dijkstra's algorithm. Interactive metro map with live train tracking.">
+  <title>Metro Route Optimizer | Pune Metro Navigator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚇</text></svg>">
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="app-header">
+    <div class="logo">
+      <span class="logo-icon">🚇</span>
+      <div>
+        <h1>Metro Route Optimizer</h1>
+        <span class="logo-sub">Pune Metro • Dijkstra's Algorithm</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div id="metro-stats"></div>
+      <span id="live-clock"></span>
+      <button id="theme-toggle" title="Toggle theme">☀️</button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN LAYOUT ==================== -->
+  <main class="app-main">
+
+    <!-- LEFT PANEL — Journey Planner -->
+    <aside class="left-panel">
+      <div class="panel-title">🗺️ Journey Planner</div>
+
+      <div class="input-group">
+        <label for="source-input">From Station</label>
+        <input type="text" id="source-input" placeholder="Search source station..." autocomplete="off">
+        <div class="autocomplete-dropdown" id="source-dropdown"></div>
+      </div>
+
+      <div class="swap-row">
+        <button id="swap-btn" title="Swap stations">⇅</button>
+      </div>
+
+      <div class="input-group">
+        <label for="dest-input">To Station</label>
+        <input type="text" id="dest-input" placeholder="Search destination station..." autocomplete="off">
+        <div class="autocomplete-dropdown" id="dest-dropdown"></div>
+      </div>
+
+      <div class="mode-row">
+        <span>📏 Distance</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="mode-toggle">
+          <span class="toggle-slider"></span>
+        </label>
+        <span>⏱️ Time</span>
+      </div>
+
+      <button id="find-route-btn">🔍 Find Route</button>
+
+      <!-- Tabs: History / Stations -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="tab-history">📋 History</button>
+        <button class="tab-btn" data-tab="tab-stations">🚉 Stations</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-history">
+        <div id="history-list"></div>
+        <button id="clear-history-btn">🗑️ Clear History</button>
+      </div>
+
+      <div class="tab-panel" id="tab-stations">
+        <div id="stations-list"></div>
+      </div>
+    </aside>
+
+    <!-- CENTER — Interactive Metro Map -->
+    <section class="center-panel">
+      <div id="metro-map-container"></div>
+
+      <div class="map-legend">
+        <div class="legend-title">Pune Metro Lines</div>
+        <div class="legend-item"><span class="legend-line" style="background:#9C27B0"></span> Purple Line (PCMC–Swargate)</div>
+        <div class="legend-item"><span class="legend-line" style="background:#00BCD4"></span> Aqua Line (Vanaz–Ramwadi)</div>
+        <div class="legend-item" style="margin-top:6px"><span class="legend-dot" style="background:#00E5FF"></span> Interchange</div>
+        <div class="legend-item"><span style="font-size:14px">▮</span> Live Train</div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL — Results / Station Info -->
+    <aside class="right-panel">
+      <div id="results-panel"></div>
+      <div id="station-info-panel"></div>
+      <div class="right-default" id="right-default">
+        <div class="icon">🚆</div>
+        <p>Select a route or click a station on the map to see details here.</p>
+      </div>
+    </aside>
+
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+
+  <!-- Inline script to populate stations list -->
+  <script type="module">
+    import { STATIONS, METRO_LINES } from './js/metro-data.js';
+    const list = document.getElementById('stations-list');
+    if (list) {
+      const sorted = Object.entries(STATIONS).sort((a,b) => a[1].displayName.localeCompare(b[1].displayName));
+      list.innerHTML = sorted.map(([id, data]) => {
+        const lines = data.lines.map(l =>
+          `<span class="line-badge" style="background:${METRO_LINES[l]?.color||'#888'};font-size:9px;padding:1px 6px">${METRO_LINES[l]?.name||l}</span>`
+        ).join('');
+        return `<div class="history-item" style="cursor:default"><div class="history-route"><span style="font-size:12px;font-weight:600">${data.displayName}</span></div><div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap">${lines}</div></div>`;
+      }).join('');
+    }
+
+    // Hide default panel when results or info are shown
+    const observer = new MutationObserver(() => {
+      const results = document.getElementById('results-panel');
+      const info = document.getElementById('station-info-panel');
+      const def = document.getElementById('right-default');
+      if (def) {
+        const active = results?.classList.contains('active') || info?.classList.contains('active');
+        def.style.display = active ? 'none' : 'flex';
+      }
+    });
+    observer.observe(document.querySelector('.right-panel'), { subtree: true, attributes: true, attributeFilter: ['class'] });
+  </script>
+
+</body>
+</html>

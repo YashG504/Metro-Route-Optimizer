@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 #include <vector>
 #include <unordered_map>
 #include <algorithm>
@@ -141,7 +142,7 @@ public:
 
     void display_Map()
     {
-        cout << "\t Delhi Metro Map" << endl;
+        cout << "\t Pune Metro Map" << endl;
         cout << "\t------------------" << endl;
         cout << "----------------------------------------------------" << endl;
         cout << endl;
@@ -171,7 +172,7 @@ public:
     {
         cout << endl;
         cout << "╔════════════════════════════════════════════════════╗" << endl;
-        cout << "║           DELHI METRO STATIONS                    ║" << endl;
+        cout << "║           PUNE METRO STATIONS                     ║" << endl;
         cout << "╚════════════════════════════════════════════════════╝" << endl;
         int i = 1;
         for (auto it = vtces.begin(); it != vtces.end(); it++)
@@ -672,46 +673,70 @@ public:
 
     static void Create_Metro_Map(Graph_M &g)
     {
-        g.addVertex("Noida_Sector_62~B");
-        g.addVertex("Botanical_Garden~B");
-        g.addVertex("Yamuna_Bank~B");
-        g.addVertex("Rajiv_Chowk~BY");
-        g.addVertex("Vaishali~B");
-        g.addVertex("Moti_Nagar~B");
-        g.addVertex("Janak_Puri_West~BO");
-        g.addVertex("Dwarka_Sector_21~B");
-        g.addVertex("Huda_City_Center~Y");
-        g.addVertex("Saket~Y");
-        g.addVertex("Vishwavidyalaya~Y");
-        g.addVertex("Chandni_Chowk~Y");
-        g.addVertex("New_Delhi~YO");
-        g.addVertex("AIIMS~Y");
-        g.addVertex("Shivaji_Stadium~O");
-        g.addVertex("DDS_Campus~O");
-        g.addVertex("IGI_Airport~O");
-        g.addVertex("Rajouri_Garden~BP");
-        g.addVertex("Netaji_Subhash_Place~PR");
-        g.addVertex("Punjabi_Bagh_West~P");
+        // Purple Line
+        g.addVertex("PCMC~P");
+        g.addVertex("Sant_Tukaram_Nagar~P");
+        g.addVertex("Bhosari~P");
+        g.addVertex("Kasarwadi~P");
+        g.addVertex("Phugewadi~P");
+        g.addVertex("Dapodi~P");
+        g.addVertex("Bopodi~P");
+        g.addVertex("Khadki~P");
+        g.addVertex("Range_Hills~P");
+        g.addVertex("Shivajinagar~P");
+        g.addVertex("Civil_Court~PA");
+        g.addVertex("Budhwar_Peth~P");
+        g.addVertex("Mandai~P");
+        g.addVertex("Swargate~P");
 
-        g.addEdge("Noida_Sector_62~B", "Botanical_Garden~B", 8);
-        g.addEdge("Botanical_Garden~B", "Yamuna_Bank~B", 10);
-        g.addEdge("Yamuna_Bank~B", "Vaishali~B", 8);
-        g.addEdge("Yamuna_Bank~B", "Rajiv_Chowk~BY", 6);
-        g.addEdge("Rajiv_Chowk~BY", "Moti_Nagar~B", 9);
-        g.addEdge("Moti_Nagar~B", "Janak_Puri_West~BO", 7);
-        g.addEdge("Janak_Puri_West~BO", "Dwarka_Sector_21~B", 6);
-        g.addEdge("Huda_City_Center~Y", "Saket~Y", 15);
-        g.addEdge("Saket~Y", "AIIMS~Y", 6);
-        g.addEdge("AIIMS~Y", "Rajiv_Chowk~BY", 7);
-        g.addEdge("Rajiv_Chowk~BY", "New_Delhi~YO", 1);
-        g.addEdge("New_Delhi~YO", "Chandni_Chowk~Y", 2);
-        g.addEdge("Chandni_Chowk~Y", "Vishwavidyalaya~Y", 5);
-        g.addEdge("New_Delhi~YO", "Shivaji_Stadium~O", 2);
-        g.addEdge("Shivaji_Stadium~O", "DDS_Campus~O", 7);
-        g.addEdge("DDS_Campus~O", "IGI_Airport~O", 8);
-        g.addEdge("Moti_Nagar~B", "Rajouri_Garden~BP", 2);
-        g.addEdge("Punjabi_Bagh_West~P", "Rajouri_Garden~BP", 2);
-        g.addEdge("Punjabi_Bagh_West~P", "Netaji_Subhash_Place~PR", 3);
+        // Aqua Line
+        g.addVertex("Vanaz~A");
+        g.addVertex("Anand_Nagar~A");
+        g.addVertex("Ideal_Colony~A");
+        g.addVertex("Nal_Stop~A");
+        g.addVertex("Garware_College~A");
+        g.addVertex("Deccan_Gymkhana~A");
+        g.addVertex("Chhatrapati_Sambhaji_Udyan~A");
+        g.addVertex("PMC~A");
+        g.addVertex("Mangalwar_Peth~A");
+        g.addVertex("Pune_Railway_Station~A");
+        g.addVertex("Ruby_Hall_Clinic~A");
+        g.addVertex("Bund_Garden~A");
+        g.addVertex("Yerawada~A");
+        g.addVertex("Kalyani_Nagar~A");
+        g.addVertex("Ramwadi~A");
+
+        // Purple Line Edges
+        g.addEdge("PCMC~P", "Sant_Tukaram_Nagar~P", 2);
+        g.addEdge("Sant_Tukaram_Nagar~P", "Bhosari~P", 1);
+        g.addEdge("Bhosari~P", "Kasarwadi~P", 2);
+        g.addEdge("Kasarwadi~P", "Phugewadi~P", 2);
+        g.addEdge("Phugewadi~P", "Dapodi~P", 1);
+        g.addEdge("Dapodi~P", "Bopodi~P", 2);
+        g.addEdge("Bopodi~P", "Khadki~P", 1);
+        g.addEdge("Khadki~P", "Range_Hills~P", 1);
+        g.addEdge("Range_Hills~P", "Shivajinagar~P", 2);
+        g.addEdge("Shivajinagar~P", "Civil_Court~PA", 1);
+        g.addEdge("Civil_Court~PA", "Budhwar_Peth~P", 1);
+        g.addEdge("Budhwar_Peth~P", "Mandai~P", 1);
+        g.addEdge("Mandai~P", "Swargate~P", 1);
+
+        // Aqua Line Edges
+        g.addEdge("Vanaz~A", "Anand_Nagar~A", 1);
+        g.addEdge("Anand_Nagar~A", "Ideal_Colony~A", 1);
+        g.addEdge("Ideal_Colony~A", "Nal_Stop~A", 1);
+        g.addEdge("Nal_Stop~A", "Garware_College~A", 1);
+        g.addEdge("Garware_College~A", "Deccan_Gymkhana~A", 1);
+        g.addEdge("Deccan_Gymkhana~A", "Chhatrapati_Sambhaji_Udyan~A", 1);
+        g.addEdge("Chhatrapati_Sambhaji_Udyan~A", "PMC~A", 1);
+        g.addEdge("PMC~A", "Civil_Court~PA", 1);
+        g.addEdge("Civil_Court~PA", "Mangalwar_Peth~A", 1);
+        g.addEdge("Mangalwar_Peth~A", "Pune_Railway_Station~A", 1);
+        g.addEdge("Pune_Railway_Station~A", "Ruby_Hall_Clinic~A", 1);
+        g.addEdge("Ruby_Hall_Clinic~A", "Bund_Garden~A", 1);
+        g.addEdge("Bund_Garden~A", "Yerawada~A", 2);
+        g.addEdge("Yerawada~A", "Kalyani_Nagar~A", 1);
+        g.addEdge("Kalyani_Nagar~A", "Ramwadi~A", 2);
     }
 };
 
@@ -805,12 +830,13 @@ string getStationWithSearch(Graph_M &g)
 
 int main()
 {
+    SetConsoleOutputCP(CP_UTF8);
     Graph_M g;
     Graph_M::Create_Metro_Map(g);
 
     cout << "\n\n";
     cout << "╔════════════════════════════════════════════════════════════════╗" << endl;
-    cout << "║     WELCOME TO DELHI METRO ROUTE OPTIMIZER (v2.0)            ║" << endl;
+    cout << "║     WELCOME TO PUNE METRO ROUTE OPTIMIZER (v2.0)             ║" << endl;
     cout << "║     Enhanced with Dijkstra's Algorithm & Smart Features      ║" << endl;
     cout << "╚════════════════════════════════════════════════════════════════╝" << endl;
 
